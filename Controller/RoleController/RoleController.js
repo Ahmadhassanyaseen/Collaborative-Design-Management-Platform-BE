@@ -54,6 +54,17 @@ const RoleController = {
       res.status(400).json({ error: error.message });
     }
   },
+  allUsersWithRole: async (req, res) => {
+    try {
+      const role = await RoleService.allUsersWithRole(req.params.id);
+      if (!role) {
+        return res.status(404).json({ error: "Role not found" });
+      }
+      res.json(role);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  },
 };
 
 export default RoleController;

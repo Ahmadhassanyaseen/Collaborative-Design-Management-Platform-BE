@@ -3,6 +3,9 @@ import UserRouter from "./UserRouter/UserRouter.js";
 import TeamRouter from "./TeamRouter/TeamRouter.js";
 import TaskRouter from "./TaskRouter/TaskRouter.js";
 import RoleRouter from "./RoleRouter/RoleRouter.js";
+import ProductRouter from "./ProductRouter/ProductRouter.js";
+import ItemRouter from "./ItemRouter/ItemRouter.js";
+import BlogRouter from "./BlogRouter/BlogRouter.js";
 
 const AllRouter = Router();
 
@@ -10,5 +13,9 @@ AllRouter.use('/users', UserRouter);
 AllRouter.use('/teams', TeamRouter);
 AllRouter.use("/tasks", TaskRouter);
 AllRouter.use("/roles", RoleRouter);
+AllRouter.use("/products", ProductRouter);
+AllRouter.use("/items", ItemRouter);
+AllRouter.use("/blogs", BlogRouter);
+
 
 export default AllRouter;

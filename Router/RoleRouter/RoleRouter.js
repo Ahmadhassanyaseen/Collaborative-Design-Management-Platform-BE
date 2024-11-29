@@ -17,5 +17,7 @@ RoleRouter.get("/allRoles", RoleController.getAllRoles);
 
 // Route to fetch a single role by ID
 RoleRouter.get("/singleRole/:id", RoleController.getRoleById);
+// Route to fetch all user with role id 
+RoleRouter.get("/allUsersWithRole/:id", RoleController.allUsersWithRole);
 
 export default RoleRouter;

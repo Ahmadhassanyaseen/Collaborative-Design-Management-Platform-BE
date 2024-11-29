@@ -30,7 +30,7 @@ const UserServices = {
 
   loginUser: async (req, res) => {
     try {
-      const user = await UserModel.findOne({ email: req.body.email });
+      const user = await UserModel.findOne({ email: req.body.email }).populate("role");
       if (!user) {
         return {
           "message": "User Does Not Exist",
@@ -60,7 +60,12 @@ const UserServices = {
   },
   allUsers: async (req, res) => {
     try {
-      const user = await UserModel.find().populate("role","");
+      // const user = await UserModel.find({isDeleted:false}).populate("role","");
+      const user = await UserModel.find({ isDeleted: false })
+      .populate(
+        "role",
+        ""
+      );
       return user;
     } catch (e) {
       console.error(e);
@@ -80,7 +85,8 @@ const UserServices = {
   updateUser: async (req, res) => {
     try {
       const userId = req.params.userId;
-      const { name, email, password, phone, role } = req.body;
+      const { name, email, password, phone, role , isAdmin } = req.body;
+      // console.log(req.body);
 
       const user = await UserModel.findById(userId);
       if (!user) {
@@ -91,10 +97,14 @@ const UserServices = {
       if (email) user.email = email;
       if (password) user.password = await bcrypt.hash(password, 10);
       if (phone) user.phone = phone;
+      if (typeof isAdmin !== "undefined") {
+        user.isAdmin = isAdmin;
+      }
       if (role) user.role = role;
 
       await user.save();
-
+ await user.populate("role");
+//  console.log(user);
       return user;
     } catch (e) {
       console.error(e);
@@ -105,7 +115,7 @@ const UserServices = {
     try {
       const userId = req.params.userId;
      const imageUrl = req.imageUrl;
-     console.log(imageUrl);
+    //  console.log(imageUrl);
 
       const user = await UserModel.findById(userId);
       if (!user) {
@@ -128,17 +138,14 @@ const UserServices = {
       const userId = req.params.userId;
       // console.log(userId);
 
-      const user = await UserModel.findByIdAndDelete(userId);
-      // console.log(user);
-
+      const user = await UserModel.findById(userId);
       if (!user) {
-        return {
-          message: "User Does Not Exist",
-          status: 404,
-        };
+        return { message: "User not found", status: 404 };
       }
-
+      user.isDeleted = true;
+      await user.save();
       return {
+        user:user,
         message: "User Deleted",
         status: 200,
       };

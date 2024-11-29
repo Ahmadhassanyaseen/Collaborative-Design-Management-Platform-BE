@@ -12,12 +12,23 @@ const uploadSingleFileToCloudinary = (fieldName) => {
     // console.log(req.file); // Changed from req.files to req.file
 
     try {
-      if (!req.file) {
+      if (req.body[fieldName]) {
+        // If file is already present in the request body, bypass Cloudinary upload
+        req[fieldName + "Url"] = req.body[fieldName];
+        return next();
+      }
+
+      if (!req.file) { 
         throw new Error(`No ${fieldName} file provided`);
       }
+      // console.log(req.file);
+       const fileType = req.file.mimetype;
       let uploadOptions = { resource_type: "auto" };
       let uploadFolder = "default_folder"; // Default folder
       uploadOptions.folder = uploadFolder; // Set folder in upload options
+       if (fileType === "image/svg+xml") {
+         uploadOptions.format = "svg"; // Explicitly set the format for SVG files
+       }
       cloudinary.uploader
         .upload_stream(uploadOptions, (error, result) => {
           if (error) {

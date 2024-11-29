@@ -1,35 +1,47 @@
+
 import mongoose from "mongoose";
 
-const TaskSchema = new mongoose.Schema(
+const ProductSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
-    },
-    team: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Team",
       required: true,
     },
     description: {
       type: String,
       required: true,
     },
-    priority: {
+    items: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Item",
+        required: true,
+      },
+    ],
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    type: {
       type: String,
       required: true,
     },
-    file: {
+    tone: {
+      type: String,
+      required: true,
+    },
+    category: {
       type: String,
       required: true,
     },
     status: {
       type: String,
-      required: true,
+      default: "Pending",
     },
-    endDate: {
-      type: Date,
-      required: true,
+    published: {
+      type: Boolean,
+      default: false,
     },
     isDeleted: {
       type: Boolean,
@@ -41,4 +53,4 @@ const TaskSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Task", TaskSchema);
+export default mongoose.model("Product", ProductSchema);
