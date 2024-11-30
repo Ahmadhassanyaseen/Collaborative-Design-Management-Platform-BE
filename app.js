@@ -18,16 +18,19 @@ app.use(corsInstance);
 
 app.use("/api", AllRouter);
 
-const start = async()=>{
-    try {
-        DBConnect();
-        app.listen(port , ()=>{
-            console.log(`Starting on port ${port}`);
-        });
-        
-    } catch (error) {
-        console.error("Error While Starting app "+error);
-    }
-}
+const start = async () => {
+  try {
+    await DBConnect(); // Ensure DBConnect is awaited if it returns a Promise
+    const host = "localhost"; // Replace with your server's hostname or IP address
+    const protocol = "http"; // Adjust to 'https' if you're using HTTPS
+
+    app.listen(port, () => {
+      console.log(`Server started at ${protocol}://${host}:${port}`);
+    });
+  } catch (error) {
+    console.error("Error while starting app: " + error);
+  }
+};
+
 
 start();
