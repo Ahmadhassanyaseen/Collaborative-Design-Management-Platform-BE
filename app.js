@@ -15,6 +15,7 @@ const corsInstance = cors({
     "http://localhost:5173",
     "http://localhost:5174",
     "https://collaborative-design-ma-git-f9e884-ah9426338-gmailcoms-projects.vercel.app",
+    "https://collaborative-design-management-platform-5q8yn2g1h.vercel.app",
   ],
   credentials: true,
 });
