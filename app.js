@@ -11,7 +11,11 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const corsInstance = cors({
-  origin: ["http://localhost:5173", "http://localhost:5174"],
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://collaborative-design-ma-git-f9e884-ah9426338-gmailcoms-projects.vercel.app",
+  ],
   credentials: true,
 });
 app.use(corsInstance);
