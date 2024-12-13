@@ -95,7 +95,7 @@ const UserServices = {
 
       if (name) user.name = name;
       if (email) user.email = email;
-      if (password) user.password = await bcrypt.hash(password, 10);
+      if (password && password != '' && password != null) user.password = await bcrypt.hash(password, 10);
       if (phone) user.phone = phone;
       if (typeof isAdmin !== "undefined") {
         user.isAdmin = isAdmin;
