@@ -6,6 +6,7 @@ import RoleRouter from "./RoleRouter/RoleRouter.js";
 import ProductRouter from "./ProductRouter/ProductRouter.js";
 import ItemRouter from "./ItemRouter/ItemRouter.js";
 import BlogRouter from "./BlogRouter/BlogRouter.js";
+import UploadRouter from "./UploadRouter/UploadRouter.js";
 
 const AllRouter = Router();
 
@@ -16,6 +17,6 @@ AllRouter.use("/roles", RoleRouter);
 AllRouter.use("/products", ProductRouter);
 AllRouter.use("/items", ItemRouter);
 AllRouter.use("/blogs", BlogRouter);
-
+AllRouter.use("/upload", UploadRouter);
 
 export default AllRouter;

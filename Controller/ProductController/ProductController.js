@@ -72,6 +72,14 @@ const ProductController = {
       res.status(500).json({ error: error.message });
     }
   },
+  getAllPublishedProducts: async (req, res) => {
+    try {
+      const products = await ProductService.getAllPublishedProducts();
+      res.status(200).json(products);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
 };
 
 export default ProductController;

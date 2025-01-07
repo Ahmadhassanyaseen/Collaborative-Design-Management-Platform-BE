@@ -1,19 +1,50 @@
 import ItemModel from "../../Models/ItemModel/ItemModel.js";
+import ProductModel from "../../Models/ProductModel/ProductModel.js";
 
 const ItemService = {
   createItem: async (req) => {
-    // console.log(req.body);
-    const {name, tags ,  uploadedBy} = req.body;
-    // console.log(req.body);
-    // console.log(req.fileUrl);
+    const { name, tags, uploadedBy, type, category, status, tone, productId } = req.body;
+    
+    // Parse tags if they're a JSON string
+    const parsedTags = typeof tags === 'string' ? JSON.parse(tags) : tags;
+    
+    console.log({
+      name,
+      tags: parsedTags,
+      uploadedBy,
+      type,
+      category,
+      status,
+      tone,
+      productId
+    });
+
+    // Create new item with all required fields
     const item = new ItemModel({
       name,
-      tags,
+      tags: parsedTags,
       uploadedBy,
+      type,
+      category,
+      status: status || 'active',
+      tone,
       file: req.fileUrl,
-    })
-  
-    return await item.save();
+    });
+
+    // Save the item
+    const savedItem = await item.save();
+
+    // Update the product's items array
+    if (productId) {
+      await ProductModel.findByIdAndUpdate(
+        productId,
+        { $push: { items: savedItem._id } },
+        { new: true }
+      );
+    }
+
+    // Return the saved item
+    return savedItem;
   },
 
   getAllItems: async () => {

@@ -11,9 +11,11 @@ ProductRouter.post(
   ProductController.createProduct
 );
 
-
 // Get all products
 ProductRouter.get("/allProducts", ProductController.getAllProducts);
+
+// Get all published products
+ProductRouter.get("/publishedProducts", ProductController.getAllPublishedProducts);
 
 // Get a product by ID
 ProductRouter.get("/singleProduct/:id", ProductController.getProductById);

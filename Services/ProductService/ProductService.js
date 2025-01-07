@@ -4,19 +4,20 @@ import ProductModel from "../../Models/ProductModel/ProductModel.js";
 const ProductService = {
   createProduct: async (productData, itemData, createdBy) => {
     try {
-      // console.log(productData, itemData, createdBy);
-    const newProduct = new ProductModel({
-      name: productData.name,
-      description: productData.description,
-      category: productData.category,
-      tone: productData.tone,
-      type: productData.type,
-      items: itemData,
-      createdBy: createdBy
-    }
-    );
-    return await newProduct.save();
-
+      const newProduct = new ProductModel({
+        name: productData.name,
+        description: productData.description,
+        screenshot: productData.screenshot,
+        category: productData.category,
+        tone: productData.tone,
+        type: productData.type,
+        price: productData.price,
+        status: productData.status,
+        published: productData.published,
+        items: itemData,
+        createdBy: createdBy
+      });
+      return await newProduct.save();
     } catch (error) {
       throw new Error(`Error creating product: ${error.message}`);
     }
@@ -24,6 +25,17 @@ const ProductService = {
 
   getAllProducts: async () => {
     return await ProductModel.find({ isDeleted: false })
+      .select('name description screenshot type tone category price status published items createdBy isDeleted')
+      .populate("items")
+      .populate("createdBy");
+  },
+
+  getAllPublishedProducts: async () => {
+    return await ProductModel.find({ 
+      isDeleted: false,
+      published: true 
+    })
+      .select('name description screenshot type tone category price status published items createdBy isDeleted')
       .populate("items")
       .populate("createdBy");
   },
@@ -40,15 +52,24 @@ const ProductService = {
   },
 
   updateProduct: async (id, productData) => {
-    return await ProductModel.findByIdAndUpdate(id, productData, { new: true });
+    return await ProductModel.findByIdAndUpdate(
+      id,
+      { ...productData },
+      { new: true }
+    ).populate("items").populate("createdBy");
   },
 
   deleteProduct: async (id) => {
-    return await ProductModel.findByIdAndUpdate(
-      id,
-      { isDeleted: true },
-      { new: true }
-    );
+    try {
+      const product = await ProductModel.findByIdAndUpdate(
+        id,
+        { isDeleted: true },
+        { new: true }
+      );
+      return product;
+    } catch (error) {
+      throw new Error(`Error deleting product: ${error.message}`);
+    }
   },
 };
 

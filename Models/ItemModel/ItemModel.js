@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const ItemSchema = new mongoose.Schema(
@@ -7,16 +6,35 @@ const ItemSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    tags:[
-        {type:String,}
-    ],
-    file:{
-        type: String,
+    tone: {
+      type: String,
+      required: true,
+      enum: ['standard', 'sharp', 'rounded', 'duoTone'],
     },
-    uploadedBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
-
+    type: {
+      type: String,
+      required: true,
+      enum: ['solid', 'semiSolid', 'stroke'],
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ['active', 'inactive'],
+      default: 'active',
+    },
+    tags: [
+      { type: String }
+    ],
+    file: {
+      type: String,
+    },
+    uploadedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
     },
     isDeleted: {
       type: Boolean,
