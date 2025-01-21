@@ -6,6 +6,10 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+      required: true,
+    },
     featuredImage: {
       type: String,
       required: true,
@@ -19,17 +23,37 @@ const PostSchema = new mongoose.Schema(
       ref: "BlogCategory",
       required: true,
     },
+    websites: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "BlogWebsite",
+      required: true,
+    }],
+    metaTitle: {
+      type: String,
+      required: true,
+      maxLength: 60 // SEO best practice for meta titles
+    },
+    metaDescription: {
+      type: String,
+      required: true,
+      maxLength: 160 // SEO best practice for meta descriptions
+    },
+    focusKeywords: [{
+      type: String,
+      required: true,
+      trim: true
+    }],
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
     comments:{
         type:Boolean,
-        default:true
+        default: false
     },
-    views:{
-        type:String,
-        default:'0'
+    views: {
+      type: Number,
+      default: 0
     },
     status: {
       type: String,

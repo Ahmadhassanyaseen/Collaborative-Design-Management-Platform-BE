@@ -13,9 +13,11 @@ BlogRouter.post(
   BlogController.createPost
 );
 BlogRouter.get("/allPosts", BlogController.getAllPosts);
+BlogRouter.get("/allPosts/:website", BlogController.getAllPostsByWebsite);
 
 // Route to get a single blog post by ID
 BlogRouter.get("/post/:id", BlogController.getPostById);
+BlogRouter.get("/postBySlug/:slug", BlogController.getPostBySlug);
 
 // Route to update a blog post by ID
 BlogRouter.put(
@@ -58,5 +60,26 @@ BlogRouter.put(
 
 // Route to delete a category (soft delete)
 BlogRouter.delete("/categories/:id", BlogController.deleteCategory);
+
+// Route to create a new website
+BlogRouter.post(
+  "/createWebsite",
+  BlogController.createWebsite
+);
+
+// Route to get all websites
+BlogRouter.get("/allWebsites", BlogController.getAllWebsites);
+
+// Route to get a single website by ID
+BlogRouter.get("/websites/:id", BlogController.getWebsiteById);
+
+// Route to update a website
+BlogRouter.put(
+  "/editWebsite/:id",
+  BlogController.updateWebsite
+);
+
+// Route to delete a website (soft delete)
+BlogRouter.delete("/websites/:id", BlogController.deleteWebsite);
 
 export default BlogRouter;

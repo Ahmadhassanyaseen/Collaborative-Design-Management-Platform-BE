@@ -6,7 +6,7 @@ import upload from "../../Middlewares/MulterMiddleware.js";
 const UploadRouter = Router();
 
 // Upload file route
-console.log("here");
+// console.log("here");
 // console.log(upload);
 
 UploadRouter.post('/', upload.single('file'), uploadSingleFileToCloudinary('file'), UploadController.uploadFile);
