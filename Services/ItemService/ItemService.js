@@ -54,10 +54,13 @@ const ItemService = {
   getItemById: async (id) => {
     return await ItemModel.findById(id).populate("uploadedBy");
   },
+  getItemByTag: async (tag) => {
+    return await ItemModel.find({ tags: tag }).populate("uploadedBy");
+  },
 
   updateItem: async (req) => {
     const id = req.params.id;
-  const { name, tags } = req.body;
+  const { name, tags, type, category, tone } = req.body;
 
   try {
     // Find the item by ID
@@ -73,6 +76,9 @@ const ItemService = {
     // Update fields if provided
     item.name = name || item.name;
     item.tags = tags || item.tags;
+    item.tone = tone || item.tone;
+    item.category = category || item.category;
+    item.type = type || item.type;
     item.file = req.fileUrl || item.file; // Update file URL if provided
 
     // Save the updated item

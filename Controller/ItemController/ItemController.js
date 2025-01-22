@@ -31,6 +31,17 @@ const ItemController = {
       res.status(500).json({ error: error.message });
     }
   },
+  getItemByTag: async (req, res) => {
+    try {
+      const item = await ItemService.getItemByTag(req.params.tag);
+      if (!item) {
+        return res.status(404).json({ message: "Item not found" });
+      }
+      res.status(200).json(item);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
 
   updateItem: async (req, res) => {
     try {

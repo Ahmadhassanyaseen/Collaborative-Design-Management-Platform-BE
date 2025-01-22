@@ -19,6 +19,7 @@ ItemRouter.get("/getAllItems", ItemController.getAllItems);
 
 // Get an item by ID
 ItemRouter.get("/getItem/:id", ItemController.getItemById);
+ItemRouter.get("/getItemByTag/:tag", ItemController.getItemByTag);
 
 // Update an item by ID
 ItemRouter.put(
