@@ -28,6 +28,14 @@ const BlogController = {
       return res.status(500).json({ error: error.message });
     }
   },
+  async allPostsByCategory(req, res) {
+    try {
+      const posts = await BlogService.allPostsByCategory(req.params.category);
+      return res.status(200).json(posts);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  },
 
   async getPostById(req, res) {
     try {

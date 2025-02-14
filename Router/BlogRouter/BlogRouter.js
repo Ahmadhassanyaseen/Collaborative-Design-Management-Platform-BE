@@ -13,6 +13,7 @@ BlogRouter.post(
   BlogController.createPost
 );
 BlogRouter.get("/allPosts", BlogController.getAllPosts);
+BlogRouter.get("/allPostsByCategory/:category", BlogController.getAllPosts);
 BlogRouter.get("/allPosts/:website", BlogController.getAllPostsByWebsite);
 
 // Route to get a single blog post by ID
