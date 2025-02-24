@@ -102,7 +102,7 @@ const BlogService = {
   async getAllPostsByCategory(category) {
     // First find the website by link
     const categories = await BlogCategoryModel.findOne({
-      name: category,
+      slug: category,
       isDeleted: false,
     });
     if (!categories) {
@@ -284,6 +284,7 @@ const BlogService = {
     const category = new BlogCategoryModel({
       name,
       icon: iconUrl,
+      slug: name.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, ""),
       createdBy,
     });
     return await category.save();
@@ -310,6 +311,7 @@ const BlogService = {
     const { name } = req.body;
     category.name = name || category.name;
     category.icon = req.iconUrl || category.icon;
+    category.slug = name.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
     return await category.save();
   },
