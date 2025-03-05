@@ -100,6 +100,7 @@ const BlogService = {
     return posts;
   },
   async getAllPostsByCategory(category) {
+    
     // First find the website by link
     const categories = await BlogCategoryModel.findOne({
       slug: category,
@@ -108,7 +109,8 @@ const BlogService = {
     if (!categories) {
       throw new Error(`Website with link "${category}" not found`);
     }
-
+    // console.log(categories);
+    // return categories
     // console.log('Found website:', website);
 
     // Debug: Check all posts with less restrictive conditions

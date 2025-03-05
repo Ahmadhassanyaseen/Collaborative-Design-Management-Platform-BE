@@ -28,9 +28,11 @@ const BlogController = {
       return res.status(500).json({ error: error.message });
     }
   },
-  async allPostsByCategory(req, res) {
+  async getAllPostsByCategory(req, res) {
     try {
-      const posts = await BlogService.allPostsByCategory(req.params.category);
+      const posts = await BlogService.getAllPostsByCategory(
+        req.params.category
+      );
       return res.status(200).json(posts);
     } catch (error) {
       return res.status(500).json({ error: error.message });
@@ -41,7 +43,7 @@ const BlogController = {
     try {
       const post = await BlogService.getPostById(req.params.id);
       if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
+        return res.status(404).json({ message: "Post not found" });
       }
       return res.status(200).json(post);
     } catch (error) {
@@ -52,7 +54,7 @@ const BlogController = {
     try {
       const post = await BlogService.getPostBySlug(req.params.slug);
       if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
+        return res.status(404).json({ message: "Post not found" });
       }
       return res.status(200).json(post);
     } catch (error) {
@@ -64,7 +66,7 @@ const BlogController = {
     try {
       const post = await BlogService.updatePost(req.params.id, req);
       if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
+        return res.status(404).json({ message: "Post not found" });
       }
       return res.status(200).json(post);
     } catch (error) {
@@ -78,7 +80,7 @@ const BlogController = {
     try {
       const post = await BlogService.updatePostImage(req.params.id, req);
       if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
+        return res.status(404).json({ message: "Post not found" });
       }
       return res.status(200).json(post);
     } catch (error) {
@@ -90,16 +92,13 @@ const BlogController = {
     try {
       const result = await BlogService.deletePost(req.params.id);
       if (!result) {
-        return res.status(404).json({ message: 'Post not found' });
+        return res.status(404).json({ message: "Post not found" });
       }
-      return res.status(200).json({ message: 'Post deleted successfully' });
+      return res.status(200).json({ message: "Post deleted successfully" });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
   },
-
-
-
 
   // Controller method for creating a category
   async createCategory(req, res) {
@@ -136,10 +135,7 @@ const BlogController = {
   // Controller method for updating a category
   async updateCategory(req, res) {
     try {
-      const category = await BlogService.updateCategory(
-        req.params.id,
-        req
-      );
+      const category = await BlogService.updateCategory(req.params.id, req);
       if (!category)
         return res.status(404).json({ message: "Category not found" });
       return res.status(200).json(category);
@@ -195,10 +191,7 @@ const BlogController = {
   // Controller method for updating a website
   async updateWebsite(req, res) {
     try {
-      const website = await BlogService.updateWebsite(
-        req.params.id,
-        req
-      );
+      const website = await BlogService.updateWebsite(req.params.id, req);
       if (!website)
         return res.status(404).json({ message: "Website not found" });
       return res.status(200).json(website);
