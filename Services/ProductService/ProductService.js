@@ -25,8 +25,7 @@ const ProductService = {
 
   getAllProducts: async () => {
     return await ProductModel.find({ isDeleted: false })
-      .select('name description screenshot type tone category price status published items createdBy isDeleted')
-      .populate("items")
+       .populate("items")
       .populate("createdBy");
   },
 
@@ -35,7 +34,6 @@ const ProductService = {
       isDeleted: false,
       published: true 
     })
-      .select('name description screenshot type tone category price status published items createdBy isDeleted')
       .populate("items")
       .populate("createdBy");
   },
@@ -70,6 +68,11 @@ const ProductService = {
     } catch (error) {
       throw new Error(`Error deleting product: ${error.message}`);
     }
+  },
+  getProductBySlug: async (slug) => {
+    return await ProductModel.findOne({ slug, isDeleted: false })
+      .populate("items")
+      .populate("createdBy");
   },
 };
 

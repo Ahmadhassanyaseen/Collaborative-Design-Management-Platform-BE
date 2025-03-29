@@ -26,4 +26,7 @@ ProductRouter.put("/updateProduct/:id", ProductController.updateProduct);
 // Delete a product by ID
 ProductRouter.delete("/deleteProduct/:id", ProductController.deleteProduct);
 
+// Get a product by slug
+ProductRouter.get("/getProductBySlug/:slug", ProductController.getProductBySlug);
+
 export default ProductRouter;

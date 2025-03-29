@@ -4,13 +4,13 @@ const ProductController = {
   createProduct: async (req, res) => {
     try {
     
-      const { name, description, tone, type, items , userId  , category} = req.body;
+      const { name, slug ,description, tone, type, items , userId  , category} = req.body;
       
 
       // Prepare item data
    
 
-      const productData = { name, description, tone, type, userId , category};
+      const productData = { name, slug, description, tone, type, userId , category};
 
       // Call service to create product and items
       const product = await ProductService.createProduct(
@@ -78,6 +78,17 @@ const ProductController = {
       res.status(200).json(products);
     } catch (error) {
       res.status(500).json({ error: error.message });
+    }
+  },
+  getProductBySlug: async (req, res) => {
+    try {
+      const product = await ProductService.getProductBySlug(req.params.slug);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      return res.status(200).json(product);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
     }
   },
 };
