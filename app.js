@@ -33,6 +33,14 @@ const corsInstance = cors({
   credentials: true, // Allow credentials (cookies, Authorization headers, etc.)
 });
 app.use(corsInstance);
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // or set specific origin here
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+app.options("*", cors()); // Enable preflight for all routes
+
 
 app.use("/api", AllRouter);
 
