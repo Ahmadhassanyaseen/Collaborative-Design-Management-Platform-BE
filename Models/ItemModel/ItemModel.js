@@ -9,12 +9,12 @@ const ItemSchema = new mongoose.Schema(
     tone: {
       type: String,
       required: true,
-      enum: ['standard', 'sharp', 'rounded', 'duoTone'],
+      enum: ['standard', 'sharp', 'rounded', 'duoTone' , 'flat' , 'isometric'],
     },
     type: {
       type: String,
       required: true,
-      enum: ['solid', 'semiSolid', 'stroke'],
+      enum: ['solid', 'semiSolid', 'stroke' , 'line' , 'colorLine'],
     },
     category: {
       type: String,
