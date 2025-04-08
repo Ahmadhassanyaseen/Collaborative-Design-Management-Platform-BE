@@ -37,6 +37,17 @@ const ProductService = {
       .populate("items")
       .populate("createdBy");
   },
+  getAllPublishedProductsItems: async () => {
+    return await ProductModel.find({ 
+      isDeleted: false,
+      published: true 
+    })
+      .select("items")
+      .populate({
+        path: "items",
+        populate: { path: "uploadedBy" }
+      });
+  },
 
   getProductById: async (id) => {
     return await ProductModel.findById(id)

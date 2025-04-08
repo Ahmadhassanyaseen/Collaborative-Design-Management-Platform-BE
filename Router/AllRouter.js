@@ -7,6 +7,7 @@ import ProductRouter from "./ProductRouter/ProductRouter.js";
 import ItemRouter from "./ItemRouter/ItemRouter.js";
 import BlogRouter from "./BlogRouter/BlogRouter.js";
 import UploadRouter from "./UploadRouter/UploadRouter.js";
+import DashboardRouter from "./DashboardRouter/DashboardRouter.js";
 
 const AllRouter = Router();
 
@@ -18,5 +19,6 @@ AllRouter.use("/products", ProductRouter);
 AllRouter.use("/items", ItemRouter);
 AllRouter.use("/blogs", BlogRouter);
 AllRouter.use("/upload", UploadRouter);
+AllRouter.use("/dashboard", DashboardRouter);
 
 export default AllRouter;

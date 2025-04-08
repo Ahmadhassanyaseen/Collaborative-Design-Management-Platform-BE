@@ -26,6 +26,9 @@ ProductRouter.put("/updateProduct/:id", ProductController.updateProduct);
 // Delete a product by ID
 ProductRouter.delete("/deleteProduct/:id", ProductController.deleteProduct);
 
+// Get all published products items
+ProductRouter.get("/publishedProductsItems", ProductController.getAllPublishedProductsItems);
+
 // Get a product by slug
 ProductRouter.get("/getProductBySlug/:slug", ProductController.getProductBySlug);
 
