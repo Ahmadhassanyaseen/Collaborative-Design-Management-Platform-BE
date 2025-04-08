@@ -10,6 +10,7 @@ const ProductService = {
         screenshot: productData.screenshot,
         category: productData.category,
         tone: productData.tone,
+        slug: productData.slug,
         type: productData.type,
         price: productData.price,
         status: productData.status,
